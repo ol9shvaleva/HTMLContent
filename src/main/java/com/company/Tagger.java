@@ -10,12 +10,11 @@ import java.util.*;
 import static java.util.Arrays.asList;
 
 public class Tagger {
-    public static Map<String, Integer> tag(String str) {
+    public static List<String> tag(String str) {
         final List<String> tagLemme = new ArrayList<String>();
         str = str.replaceAll("[^A-Za-z]", " ").toLowerCase();
         String[] tokens = str.split(" ");
-        final Map<String, Integer> mapNoun = new HashMap();
-        Map<String, Integer> mapNounSort = new HashMap();
+        final List<String> listNoute = new ArrayList<String>();
 
         TreeTaggerWrapper tt = new TreeTaggerWrapper();
         System.setProperty("treetagger.home", "C:/TreeTagger");
@@ -28,13 +27,8 @@ public class Tagger {
                     if (pos.charAt(0) == 'N') {
                         //System.out.print(lemma);
                         //System.out.println(pos);
-                        if (mapNoun.get(lemma) == null) {
-                            mapNoun.put(lemma, 1);
-                        }
-                        else {
-                            int value = mapNoun.get(lemma);
-                            mapNoun.put(lemma, value + 1);
-                        }
+                        listNoute.add(lemma);
+
                     }
                 }
             });
@@ -48,29 +42,9 @@ public class Tagger {
         } finally {
             tt.destroy();
         }
-        mapNounSort = sortByValue(mapNoun);
-        System.out.println(mapNounSort);
-        return mapNounSort;
+
+        return listNoute;
     }
 
-    public static <K, V extends Comparable<? super V>> Map<K, V>
-    sortByValue(Map<K, V> map )
-    {
-        List<Map.Entry<K, V>> list =
-                new LinkedList(map.entrySet());
-        Collections.sort( list, new Comparator<Map.Entry<K, V>>()
-        {
-            public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2)
-            {
-                return (o2.getValue()).compareTo( o1.getValue() );
-            }
-        } );
 
-        Map<K, V> result = new LinkedHashMap<K, V>();
-        for (Map.Entry<K, V> entry : list)
-        {
-            result.put(entry.getKey(), entry.getValue());
-        }
-        return result;
-    }
 }

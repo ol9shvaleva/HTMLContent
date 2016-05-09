@@ -7,13 +7,21 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Оленька on 08.05.2016.
  *
  */
 class ListLinks {
-    static Elements listLinks (String[] args) throws IOException {
+    static List<String> result = new ArrayList<String>();
+    static List<String> listNoun = new ArrayList<String>();
+    static Map<String, Integer> mapNounSort = new HashMap();
+
+    static Map<String, Integer> listLinks (String[] args) throws IOException {
         Validate.isTrue(args.length == 1, "usage: supply url to fetch");
         String url = args[0];
         print("Fetching %s...", url);
@@ -24,9 +32,18 @@ class ListLinks {
         print("\nLinks: (%d)", links.size());
         for (Element link : links) {
             String str = link.attr("abs:href") + trim(link.text(), 35);
-            ParseContent.parseHtmlPage(str);
+            try {
+                listNoun = ParseContent.parseHtmlPage(str);
+            }
+            catch (Exception e) {}
+            if (!listNoun.isEmpty()) {
+                result.addAll(listNoun);
+            }
         }
-        return links;
+        System.out.println(result);
+        mapNounSort = MapNoun.mapNoun(result);
+        System.out.println(mapNounSort);
+        return mapNounSort;
     }
 
     private static void print(String msg, Object... args) {
