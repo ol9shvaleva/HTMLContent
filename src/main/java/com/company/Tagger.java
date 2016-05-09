@@ -5,10 +5,7 @@ import org.annolab.tt4j.TreeTaggerException;
 import org.annolab.tt4j.TreeTaggerWrapper;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.Arrays.asList;
 
@@ -18,6 +15,7 @@ public class Tagger {
         str = str.replaceAll("[^A-Za-z]", " ").toLowerCase();
         String[] tokens = str.split(" ");
         final Map<String, Integer> mapNoun = new HashMap();
+        Map<String, Integer> mapNounSort = new HashMap();
 
         TreeTaggerWrapper tt = new TreeTaggerWrapper();
         System.setProperty("treetagger.home", "C:/TreeTagger");
@@ -50,7 +48,29 @@ public class Tagger {
         } finally {
             tt.destroy();
         }
-        System.out.println(mapNoun);
-        return mapNoun;
+        mapNounSort = sortByValue(mapNoun);
+        System.out.println(mapNounSort);
+        return mapNounSort;
+    }
+
+    public static <K, V extends Comparable<? super V>> Map<K, V>
+    sortByValue(Map<K, V> map )
+    {
+        List<Map.Entry<K, V>> list =
+                new LinkedList(map.entrySet());
+        Collections.sort( list, new Comparator<Map.Entry<K, V>>()
+        {
+            public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2)
+            {
+                return (o2.getValue()).compareTo( o1.getValue() );
+            }
+        } );
+
+        Map<K, V> result = new LinkedHashMap<K, V>();
+        for (Map.Entry<K, V> entry : list)
+        {
+            result.put(entry.getKey(), entry.getValue());
+        }
+        return result;
     }
 }
