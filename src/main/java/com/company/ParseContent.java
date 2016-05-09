@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  */
 class ParseContent {
-    static String parseHtmlPage (String link) throws IOException {
+    static void parseHtmlPage (String link) throws IOException {
         try {
             Document doc = Jsoup.connect(link).get();
             //String [] textValues = new String [] {};
@@ -22,17 +22,15 @@ class ParseContent {
             String h5 = doc.select("h5").text();
             String h6 = doc.select("h6").text();
             String p = doc.select("p[class]").text();
-            System.out.println(h3 + "\n" + h2 + "\n" + h1 + "\n" + h4 + "\n" + h5 + "\n" + h6 + "\n" + p);
-
+            //System.out.println(h3 + "\n" + h2 + "\n" + h1 + "\n" + h4 + "\n" + h5 + "\n" + h6 + "\n" + p);
+            Tagger.tag(h3 + h2 + h1 + h4 + h5 + h6 + p);
             System.out.println("-------------------");
-            return h3;
         }
         catch (IOException e) {
             throw e;
         }
         catch (IllegalArgumentException e) {
             e.printStackTrace();
-            return link;
         }
     }
 

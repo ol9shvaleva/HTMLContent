@@ -11,6 +11,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="org.annolab.tt4j-1.0.15-sources" level="project" />
+    <orderEntry type="library" name="org.annolab.tt4j-1.0.15" level="project" />
+    <orderEntry type="library" name="de.tudarmstadt.ukp.dkpro.core.treetagger-asl-1.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.9.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.opennlp:opennlp-tools:1.6.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.opennlp:opennlp-uima:1.6.0" level="project" />
   </component>
 </module>
