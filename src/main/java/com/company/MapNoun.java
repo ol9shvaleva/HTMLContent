@@ -20,7 +20,6 @@ public class MapNoun {
         }
 
         mapNounSort = sortByValue(mapNoun);
-        //System.out.println(mapNounSort);
         return mapNounSort;
     }
 

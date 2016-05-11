@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -13,8 +14,10 @@ import java.util.List;
  *
  */
 class ParseContent {
-    static List<String> parseHtmlPage (String link) throws IOException {
-        List<String> listNoun = new ArrayList<String>();
+    static HashSet<String> set = new HashSet<String>();
+
+    static String parseHtmlPage (String link) throws IOException {
+        String str = "";
         try {
             Document doc = Jsoup.connect(link).get();
             //String [] textValues = new String [] {};
@@ -25,15 +28,15 @@ class ParseContent {
             String h5 = doc.select("h5").text();
             String h6 = doc.select("h6").text();
             String p = doc.select("p[class]").text();
-            //System.out.println(h3 + "\n" + h2 + "\n" + h1 + "\n" + h4 + "\n" + h5 + "\n" + h6 + "\n" + p);
-            listNoun = Tagger.tag(h3 + h2 + h1 + h4 + h5 + h6 + p);
+            str = h1 + h2 + h3 + h4 + h5 + h6 + p;
+            set.add(str);
         }
         catch (IOException e) {
         }
         catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
-        return listNoun;
+        return str;
     }
 
 

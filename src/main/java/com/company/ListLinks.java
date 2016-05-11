@@ -12,10 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Оленька on 08.05.2016.
- *
- */
 class ListLinks {
     static List<String> result = new ArrayList<String>();
     static List<String> listNoun = new ArrayList<String>();
@@ -33,13 +29,23 @@ class ListLinks {
         for (Element link : links) {
             String str = link.attr("abs:href") + trim(link.text(), 35);
             try {
-                listNoun = ParseContent.parseHtmlPage(str);
+                ParseContent.parseHtmlPage(str);
+            } catch (Exception e) {}
+
+        }
+
+        for (String s : ParseContent.set) {
+            try {
+                System.out.println(s);
+                listNoun = Tagger.tag(s);
             }
             catch (Exception e) {}
             if (!listNoun.isEmpty()) {
                 result.addAll(listNoun);
             }
         }
+
+
         System.out.println(result);
         mapNounSort = MapNoun.mapNoun(result);
         System.out.println(mapNounSort);
@@ -57,3 +63,4 @@ class ListLinks {
             return s;
     }
 }
+

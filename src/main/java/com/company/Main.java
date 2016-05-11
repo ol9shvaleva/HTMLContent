@@ -23,9 +23,5 @@ public class Main {
             e.printStackTrace();
             e.getMessage();
         }
-
-
     }
-
-
 }
