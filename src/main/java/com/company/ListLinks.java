@@ -16,6 +16,8 @@ class ListLinks {
     static List<String> result = new ArrayList<String>();
     static List<String> listNoun = new ArrayList<String>();
     static Map<String, Integer> mapNounSort = new HashMap();
+    static Map<String, Integer> mapNoun = new HashMap();
+    static Map<String, Integer> mapKey = new HashMap();
 
     static Map<String, Integer> listLinks (String[] args) throws IOException {
         Validate.isTrue(args.length == 1, "usage: supply url to fetch");
@@ -36,7 +38,7 @@ class ListLinks {
 
         for (String s : ParseContent.set) {
             try {
-                System.out.println(s);
+                //System.out.println(s);
                 listNoun = Tagger.tag(s);
             }
             catch (Exception e) {}
@@ -44,12 +46,22 @@ class ListLinks {
                 result.addAll(listNoun);
             }
         }
+        //System.out.println(result);
 
+        mapNoun = MapNoun.mapNoun(result);
 
-        System.out.println(result);
-        mapNounSort = MapNoun.mapNoun(result);
+        for(Map.Entry<String, Integer> entry : mapNoun.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            if (value > 2 && !key.equals("com") && !key.equals("twitter") && !key.equals("http") &&
+                !key.equals("url") && !key.equals("https") && key.length() > 2) {
+                mapKey.put(key, value);
+            }
+        }
+        mapNounSort = MapNoun.sortByValue(mapKey);
         System.out.println(mapNounSort);
-        return mapNounSort;
+        return mapKey;
+
     }
 
     private static void print(String msg, Object... args) {

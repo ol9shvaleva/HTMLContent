@@ -19,8 +19,8 @@ public class MapNoun {
             }
         }
 
-        mapNounSort = sortByValue(mapNoun);
-        return mapNounSort;
+
+        return mapNoun;
     }
 
     public static <K, V extends Comparable<? super V>> Map<K, V>

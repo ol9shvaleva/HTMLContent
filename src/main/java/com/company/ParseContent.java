@@ -8,11 +8,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-
-/**
- * Created by Оленька on 08.05.2016.
- *
- */
 class ParseContent {
     static HashSet<String> set = new HashSet<String>();
 
