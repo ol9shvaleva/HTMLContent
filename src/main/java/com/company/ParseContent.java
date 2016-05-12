@@ -24,6 +24,8 @@ class ParseContent {
             String h6 = doc.select("h6").text();
             String p = doc.select("p[class]").text();
             str = h1 + h2 + h3 + h4 + h5 + h6 + p;
+            str = str.replaceAll("[^A-Za-z]", " ");
+            str = str.toLowerCase();
             set.add(str);
         }
         catch (IOException e) {

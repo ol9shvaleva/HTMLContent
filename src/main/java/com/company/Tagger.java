@@ -12,8 +12,7 @@ import static java.util.Arrays.asList;
 public class Tagger {
     public static List<String> tag(String str) {
         final List<String> tagLemme = new ArrayList<String>();
-        str = str.replaceAll("[^A-Za-z]", " ");
-        str = str.toLowerCase();
+
         String[] tokens = str.split(" ");
         final List<String> listNoute = new ArrayList<String>();
 
